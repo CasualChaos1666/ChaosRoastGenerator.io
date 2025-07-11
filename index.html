@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Casual Chaos Roast Machine</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+  body {
+    background: linear-gradient(135deg, #0b0b0b 0%, #1f1f1f 100%);
+    color: #eee;
+    font-family: 'Share Tech Mono', monospace;
+    text-align: center;
+    padding: 2rem;
+    user-select: none;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 3rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+    color: #ff3300;
+    text-shadow:
+      0 0 5px #ff3300,
+      0 0 10px #ff3300,
+      0 0 20px #ff6633;
+  }
+
+  #roastBtn, #copyBtn {
+    background: #ff3300;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 0 8px #ff3300;
+    user-select: none;
+  }
+  #roastBtn {
+    padding: 1.1rem 2.5rem;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    width: 240px;
+    letter-spacing: 0.05em;
+    filter: drop-shadow(0 0 4px #ff3300);
+    position: relative;
+    overflow: hidden;
+  }
+  #roastBtn::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.2) 50%, transparent 80%);
+    transform: rotate(25deg);
+    transition: all 0.6s ease;
+    pointer-events: none; /* Prevent interference with clicks */
+  }
+  #roastBtn:hover {
+    background: #ff1a00;
+    box-shadow: 0 0 16px #ff1a00;
+  }
+  #roastBtn:hover::after {
+    left: 120%;
+    top: 120%;
+  }
+
+  #copyBtn {
+    padding: 0.5rem 1.8rem;
+    font-size: 1.1rem;
+    margin: 1rem 0 2rem;
+    width: 160px;
+    letter-spacing: 0.04em;
+    box-shadow: 0 0 5px #ff3300;
+  }
+  #copyBtn:hover {
+    background: #ff1a00;
+    box-shadow: 0 0 12px #ff1a00;
+  }
+
+  #roastText {
+    margin-top: 2rem;
+    font-size: 1.9rem;
+    min-height: 4rem;
+    white-space: pre-wrap;
+    max-width: 700px;
+    padding: 1.5rem 2rem;
+    border: 2px solid #ff3300;
+    border-radius: 15px;
+    background: #1c1c1c;
+    box-shadow:
+      0 0 10px #ff3300,
+      inset 0 0 10px #ff3300;
+    user-select: text;
+    line-height: 1.4;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  #zalgoOverlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    color: #0f0;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 2.5rem;
+    white-space: pre-wrap;
+    user-select: none;
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-shadow:
+      0 0 5px #0f0,
+      0 0 20px #0f0,
+      0 0 30px #0f0;
+    z-index: 9999;
+  }
+
+  #disclaimer {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #888;
+    user-select: none;
+  }
+
+  .red-glow {
+    color: #fff !important;
+    text-shadow:
+      0 0 6px #ff0000,
+      0 0 12px #ff0000,
+      0 0 18px #ff3300,
+      0 0 25px #ff3300;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  #copyMsg {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff3300;
+    color: #fff;
+    padding: 0.6rem 1.3rem;
+    border-radius: 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    user-select: none;
+    box-shadow:
+      0 0 10px #ff3300,
+      0 0 20px #ff6633;
+  }
+
+  @media (max-width: 480px) {
+    #roastBtn {
+      width: 100%;
+      font-size: 1.5rem;
+      padding: 1rem 1.5rem;
+    }
+    #copyBtn {
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+    }
+    #roastText {
+      font-size: 1.3rem;
+      max-width: 100%;
+      padding: 1rem 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Casual Chaos Roast Machine</h1>
+<button id="roastBtn" aria-label="Generate a roast">Roast Me</button>
+
+<div id="roastText" aria-live="polite" aria-atomic="true"></div>
+
+<button id="copyBtn" aria-label="Copy the current roast">Copy Roast</button>
+
+<div id="disclaimer">For entertainment purposes only!</div>
+
+<div id="zalgoOverlay" aria-hidden="true"></div>
+<div id="copyMsg" role="alert" aria-live="assertive">Copied to clipboard!</div>
+
+<script>
+const roasts = [
+  "You are my sun, now get 93 million miles away from me.",
+  "You bring everyone so much joy… when you leave the room.",
+  "You're like a cloud. When you disappear, it's a beautiful day.",
+  "You lag in real life.",
+  "You’re the reason Mips don’t trust electricity.",
+  "Even a Mip knows not to use a fork in the toaster, unlike you.",
+  "If you were code, you'd be an infinite loop doing nothing.",
+  "You look like a before picture for every product ever.",
+  "Your face makes onions cry.",
+  "You're like a loading screen that never ends.",
+  "You’re my favorite memory… forgotten and buried.",
+  "You light up my life… like an explosion at a gas station.",
+  "You’re my charger… always there, but somehow never working.",
+  "You're not ugly — you're just aggressively average.",
+  "Your brain's still buffering. Come back when it loads.",
+  "You’re the human version of a typo.",
+  "Your ideas have fewer downloads than dial-up.",
+  "You have the personality of a loading bar stuck at 0%.",
+  "You bring less energy than a dead battery.",
+  "Your brain’s on airplane mode, permanently.",
+  "You’re the glitch in the matrix nobody talks about.",
+  "You're like a broken script—confusing and unfinished.",
+  "You make procrastination look productive.",
+  "Your logic is as scrambled as a broken captcha.",
+  "You're proof that evolution takes a break sometimes.",
+  "You’re the reason the Mips refuse to learn from humans.",
+  "Your presence causes buffering in real life.",
+  "You have the charisma of a flatline.",
+  "You’re the bug that never got fixed.",
+  "Your thoughts need a software update desperately.",
+  "You're the reason error 404 exists.",
+  "You bring the vibes of a screen freeze.",
+  "Your jokes are like expired code—outdated and painful.",
+  "You're like a pop-up ad nobody wants to see.",
+  "Roses are red, violets are blue, Shrek thought he was ugly until he saw you.",
+  "Roses are red, violets are blue, ur parents bought u off of Temu.",
+  "Your aura emits low battery warnings.",
+  "You’re so fat, your own truck drove you.",
+  "You’re so fat, even your ghost couldn’t float."
+];
+
+// Zalgo helper function
+function zalgo(text) {
+  const zalgo_up = ["̍","̎","̄","̅","̿","̑","̆","̐","͒","͗","͑","̇","̈","̊","͂","̓","̈́","͊","͋","͌","̃","̂","̌","͐","̀","́","̋","̏","̒","̓","̔","̽","̉","ͣ","ͤ","ͥ","ͦ","ͧ","ͨ","ͩ","ͪ","ͫ","ͬ","ͭ","ͮ","ͯ","̾","͛","͆","̚"];
+  const zalgo_down = ["̖","̗","̘","̙","̜","̝","̞","̟","̠","̤","̥","̦","̩","̪","̫","̬","̭","̮","̯","̰","̱","̲","̳","̹","̺","̻","̼","ͅ","͇","͈","͉","͍","͎","͓","͔","͕","͖","͙","͚","̣"];
+  const zalgo_mid = ["̕","̛","̀","́","͘","̡","̢","̧","̨","̴","̵","̷","̸","̹","̺","̻","̼","ͅ","͇","͈","͉","͍","͎","͓","͔","͕","͖","͙","͚","̣"];
+
+  function randomChar(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  let result = "";
+  for (let char of text) {
+    if (char === " ") {
+      result += char;
+      continue;
+    }
+    result += char;
+    let num_up = Math.floor(Math.random() * 3);
+    let num_mid = Math.floor(Math.random() * 3);
+    let num_down = Math.floor(Math.random() * 3);
+
+    for (let i = 0; i < num_up; i++) result += randomChar(zalgo_up);
+    for (let i = 0; i < num_mid; i++) result += randomChar(zalgo_mid);
+    for (let i = 0; i < num_down; i++) result += randomChar(zalgo_down);
+  }
+  return result;
+}
+
+const roastBtn = document.getElementById("roastBtn");
+const copyBtn = document.getElementById("copyBtn");
+const roastText = document.getElementById("roastText");
+const zalgoOverlay = document.getElementById("zalgoOverlay");
+const copyMsg = document.getElementById("copyMsg");
+
+function showZalgo(duration = 1500) {
+  const messages = [
+    "Z̸̡̦͈̳͂͊͗͐͆̍͘A̸͍͋̀͌̒̓̓̇̎̄̎͊͝͠͠L̵̠̹̅G̴̹̟̓͐̋͆͂̍͒̿̒͑̏̄͑Ő̷̫̙̦̮̊̈́̿̕͠",
+    "̡̛͇̠̠͌̓̄̎͗̕͜͠͝ͅZ̵̤͙̍̏̇̒͑̑̕͠A̵͕̗̽́͐̔̅̽L̴̖̺͙̹̰͉̓G̸̡̡̳͕̮̩̝̈́͌̽O̵̮̤͂̎͐̾̾",
+    "Z̷̦̠̋̽̅͂͂͑̇̅͌̇̚̚͠A̸̹̟̟̹͗̇̋̓̑͠L̷̛̦̺̽̏̊̀̿̿G̷̨̩̟͈̏̾͑͌O̸̜̎͆̀̈́̎̚"
+  ];
+  const msg = messages[Math.floor(Math.random() * messages.length)];
+  zalgoOverlay.textContent = msg;
+  zalgoOverlay.style.opacity = "0.9";
+  setTimeout(() => {
+    zalgoOverlay.style.opacity = "0";
+  }, duration);
+}
+
+roastBtn.addEventListener("click", () => {
+  const index = Math.floor(Math.random() * roasts.length);
+  let text = roasts[index];
+
+  // 40% chance to zalgo-fy the text
+  if (Math.random() < 0.40) {
+    text = zalgo(text);
+    showZalgo();
+  }
+
+  roastText.textContent = text;
+
+  // Only add red glow if text is NOT zalgo (checks for combining marks)
+  if (!text.match(/[\u0300-\u036f]/)) {
+    if (Math.random() < 0.20) {
+      roastText.classList.add("red-glow");
+    } else {
+      roastText.classList.remove("red-glow");
+    }
+  } else {
+    roastText.classList.remove("red-glow");
+  }
+});
+
+// Copy roast button functionality
+copyBtn.addEventListener("click", () => {
+  const textToCopy = roastText.textContent;
+  if (!textToCopy) return;
+
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    copyMsg.style.opacity = "1";
+    setTimeout(() => {
+      copyMsg.style.opacity = "0";
+    }, 1500);
+  }).catch(() => {
+    alert("Copy failed! Try manually selecting the roast text.");
+  });
+});
+
+// Accessibility: Keyboard accessibility for buttons (optional but good)
+roastBtn.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    roastBtn.click();
+  }
+});
+copyBtn.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    copyBtn.click();
+  }
+});
+</script>
+
+</body>
+</html>
