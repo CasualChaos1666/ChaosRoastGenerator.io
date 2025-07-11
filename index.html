@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Get ready to scorch your friends with the Casual Chaos Roast Machine — a nonstop source of savage, hilarious roasts and brutal burns. Perfect for delivering quick, chaotic insults that hit hard every time!">
-  <meta name="keywords" content="jjjyyyrtryryryrukhfmhldhfl, roast generator, chaos roasts, funny insult maker, glitchy roast bot, Casual Chaos, insult generator, burn machine, Zalgo roasts, funny insults, meme insults">
+  <meta name="keywords" content="roast generator, chaos roasts, funny insult maker, glitchy roast bot, Casual Chaos, insult generator, burn machine, Zalgo roasts, funny insults, meme insults">
   <meta name="author" content="Casual Chaos">
   <title>Casual Chaos Roast Machine</title>
   <link rel="icon" type="image/png" href="favicon.png" />
@@ -66,7 +66,7 @@
     background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.2) 50%, transparent 80%);
     transform: rotate(25deg);
     transition: all 0.6s ease;
-    pointer-events: none; /* Prevent interference with clicks */
+    pointer-events: none;
   }
   #roastBtn:hover {
     background: #ff1a00;
@@ -164,6 +164,13 @@
       0 0 20px #ff6633;
   }
 
+  #aboutMips {
+    margin-top: 3rem;
+    font-size: 1rem;
+    color: #aaa;
+    max-width: 600px;
+  }
+
   @media (max-width: 480px) {
     #roastBtn {
       width: 100%;
@@ -193,9 +200,12 @@
 <button id="copyBtn" aria-label="Copy the current roast">Copy Roast</button>
 
 <div id="disclaimer">For entertainment purposes only!</div>
-
 <div id="zalgoOverlay" aria-hidden="true"></div>
 <div id="copyMsg" role="alert" aria-live="assertive">Copied to clipboard!</div>
+
+<div id="aboutMips">
+  <p>A Mip is a little human-like creature. They were made by my 10-year-old little brother when he was working on a new "comic" series about Mips.</p>
+</div>
 
 <script>
 const roasts = [
@@ -237,10 +247,60 @@ const roasts = [
   "Roses are red, violets are blue, ur parents bought u off of Temu.",
   "Your aura emits low battery warnings.",
   "You’re so fat, your own truck drove you.",
+  "You’re like a pop-up that won’t close—annoying and useless.",
+  "If stupidity were a sport, you’d be the undisputed champion.",
+  "You're the reason the internet buffers on fiber.",
+  "Your personality could use a firmware update.",
+  "You’ve got less sense than a corrupted USB drive.",
+  "You’re like Ctrl+Alt+Del—only useful when something’s gone wrong.",
+  "Your life is a failed loading bar stuck at 99%.",
+  "You make elevator music seem exciting.",
+  "If awkward was a skill, you’d be max level.",
+  "Your brain is like Windows 95—slow and obsolete.",
+  "You’re the human version of a 404 error.",
+  "You make background NPCs look interesting.",
+  "You're the glitch no one patched.",
+  "You bring less value than expired coupons.",
+  "You're the reason auto-correct gave up.",
+  "You’re like a search result on page 10—irrelevant.",
+  "You're so dry, the Sahara's jealous.",
+  "You're the diet version of fun.",
+  "Even AI can't predict what you're doing.",
+  "You're the kind of chaos that causes system crashes.",
+  "You bring the energy of a drained phone at 2%.",
+  "You're the unskippable ad of life.",
+  "You’re not even a main character in your own story.",
+  "You confuse even the Mips—and they eat batteries.",
+  "You have the accuracy of stormtrooper aim.",
+  "You’re like an unplugged toaster—useless and cold.",
+  "Your vibe screams 'disconnected Bluetooth speaker.'",
+  "You're proof that logic took a vacation.",
+  "You are the waiting room of existence—boring and endless.",
+  "You're like a weak Wi-Fi signal: always dropping.",
+  "You’re less helpful than a broken umbrella in a hurricane.",
+  "You have the rhythm of a buffering YouTube video.",
+  "You're the kind of friend who’d lose in single-player mode.",
+  "You’ve got less flavor than plain rice with no salt.",
+  "You’re like lag—nobody wants you, but you show up anyway.",
+  "You bring the chaos of unsaved progress crashing.",
+  "Your thoughts are like dial-up—painfully slow and screechy.",
+  "You're the definition of keyboard spam: asdfghjkl useless.",
+  "Even a potato has more processing power than you.",
+  "You're like a fridge light—only noticed when everything’s wrong.",
+  "You’re the reason autocorrect quit its job.",
+  "You have the sparkle of a wet sock.",
+  "You’re the blueprint for why aliens avoid Earth.",
+  "You’re like a sequel no one asked for.",
+  "You're so cold, the ice age called for advice.",
+  "You're the loading spinner of every group chat.",
+  "You're the final boss of cringe.",
+  "You're less impressive than a blank Google Doc.",
+  "You're the middle child of intelligence—forgotten and ignored.",
+  "You’re the code that always compiles with 3 warnings.",
+  "You’re the pixelated meme of human behavior.",
   "You’re so fat, even your ghost couldn’t float."
 ];
 
-// Zalgo helper function
 function zalgo(text) {
   const zalgo_up = ["̍","̎","̄","̅","̿","̑","̆","̐","͒","͗","͑","̇","̈","̊","͂","̓","̈́","͊","͋","͌","̃","̂","̌","͐","̀","́","̋","̏","̒","̓","̔","̽","̉","ͣ","ͤ","ͥ","ͦ","ͧ","ͨ","ͩ","ͪ","ͫ","ͬ","ͭ","ͮ","ͯ","̾","͛","͆","̚"];
   const zalgo_down = ["̖","̗","̘","̙","̜","̝","̞","̟","̠","̤","̥","̦","̩","̪","̫","̬","̭","̮","̯","̰","̱","̲","̳","̹","̺","̻","̼","ͅ","͇","͈","͉","͍","͎","͓","͔","͕","͖","͙","͚","̣"];
@@ -276,9 +336,9 @@ const copyMsg = document.getElementById("copyMsg");
 
 function showZalgo(duration = 1500) {
   const messages = [
-    "Z̸̡̦͈̳͂͊͗͐͆̍͘A̸͍͋̀͌̒̓̓̇̎̄̎͊͝͠͠L̵̠̹̅G̴̹̟̓͐̋͆͂̍͒̿̒͑̏̄͑Ő̷̫̙̦̮̊̈́̿̕͠",
-    "̡̛͇̠̠͌̓̄̎͗̕͜͠͝ͅZ̵̤͙̍̏̇̒͑̑̕͠A̵͕̗̽́͐̔̅̽L̴̖̺͙̹̰͉̓G̸̡̡̳͕̮̩̝̈́͌̽O̵̮̤͂̎͐̾̾",
-    "Z̷̦̠̋̽̅͂͂͑̇̅͌̇̚̚͠A̸̹̟̟̹͗̇̋̓̑͠L̷̛̦̺̽̏̊̀̿̿G̷̨̩̟͈̏̾͑͌O̸̜̎͆̀̈́̎̚"
+    "Z̸̛̦̔A̶͖̬͒L̵̠̫̓̒G̷̳͈͐O̶͔̹̽",
+    "͌̓̄̎͠͝Z̵̍̏̇̒͑̕A̵̽́͐̔̅L̴̖̺̓G̸̈́͌̽O̵͂̎͐̾̾",
+    "Z̷̋̽̅͂̚̚A̸͗̇̋̓͠L̷̛̽̏̊̀̿G̷̏̾͑͌O̸̎͆̀̚"
   ];
   const msg = messages[Math.floor(Math.random() * messages.length)];
   zalgoOverlay.textContent = msg;
@@ -292,17 +352,15 @@ roastBtn.addEventListener("click", () => {
   const index = Math.floor(Math.random() * roasts.length);
   let text = roasts[index];
 
-  // 40% chance to zalgo-fy the text
-  if (Math.random() < 0.40) {
+  if (Math.random() < 0.4) {
     text = zalgo(text);
     showZalgo();
   }
 
   roastText.textContent = text;
 
-  // Only add red glow if text is NOT zalgo (checks for combining marks)
   if (!text.match(/[\u0300-\u036f]/)) {
-    if (Math.random() < 0.20) {
+    if (Math.random() < 0.2) {
       roastText.classList.add("red-glow");
     } else {
       roastText.classList.remove("red-glow");
@@ -312,7 +370,6 @@ roastBtn.addEventListener("click", () => {
   }
 });
 
-// Copy roast button functionality
 copyBtn.addEventListener("click", () => {
   const textToCopy = roastText.textContent;
   if (!textToCopy) return;
@@ -327,7 +384,6 @@ copyBtn.addEventListener("click", () => {
   });
 });
 
-// Accessibility: Keyboard accessibility for buttons (optional but good)
 roastBtn.addEventListener("keydown", (e) => {
   if (e.key === "Enter" || e.key === " ") {
     e.preventDefault();
