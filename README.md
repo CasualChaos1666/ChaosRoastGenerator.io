@@ -8,7 +8,7 @@ This project delivers savage, hilarious, sometimes glitchy, always chaotic roast
 
 ## 🎮 How to Use
 
-1. Open the [Live Chaos Site](https://your-username.github.io/chaos-roast-machine/) 🌐
+1. Open the [Live Chaos Site](https://casualchaos1666.github.io/ChaosRoastGenerator.io/) 🌐
 2. Click the **"Roast Me"** button.
 3. Receive your roast (possibly Zalgo-ified or glowing with rage).
 4. Click **"Copy Roast"** to share the pain.
@@ -46,7 +46,7 @@ This project delivers savage, hilarious, sometimes glitchy, always chaotic roast
 
 ## 🔗 Live Chaos Portal
 
-**[👉 Click here to summon your roast](https://your-username.github.io/chaos-roast-machine/)**
+**[👉 Click here to summon your roast](https://casualchaos1666.github.io/ChaosRoastGenerator.io/)**
 
 ---
 
