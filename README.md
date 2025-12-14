@@ -23,8 +23,8 @@ This project delivers savage, hilarious, sometimes glitchy, always chaotic roast
 - 🧠 Roast logic written in vanilla JS
 - 👻 Copy roast button with animated feedback
 - 💬 Sample roasts like:
-  - “You're the reason Mips don't trust electricity.”
-  - “You lag in real life.”
+  - “You're face makes onions cry.”
+  - “You make elevator music seem exciting.”
   - “Roses are red, violets are blue, Shrek thought he was ugly until he saw you.”
 
 ---
